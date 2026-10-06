@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>우리의 가치관 정원</title>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg1:#ffe9f1;--bg2:#e6efff;--bg3:#fff6df;--ink:#4a3f4f;--sub:#85788d;--card:rgba(255,255,255,.78);--sh:0 10px 30px rgba(150,120,170,.22)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b2038;--bg2:#1c2742;--bg3:#2f2a3a;--ink:#f3e9f6;--sub:#bcaec8;--card:rgba(62,50,84,.72);--sh:0 10px 30px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg1:#2b2038;--bg2:#1c2742;--bg3:#2f2a3a;--ink:#f3e9f6;--sub:#bcaec8;--card:rgba(62,50,84,.72);--sh:0 10px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:linear-gradient(160deg,var(--bg1),var(--bg2) 55%,var(--bg3));font-family:'Gowun Dodum',system-ui,sans-serif;color:var(--ink)}
+body::before,body::after{content:'';position:fixed;width:55vmax;height:55vmax;border-radius:50%;filter:blur(70px);opacity:.45;z-index:-1;background:#ffc4da;left:-20vmax;top:-18vmax}
+body::after{background:#c3d8ff;left:auto;right:-22vmax;top:auto;bottom:-22vmax}
+.scene{position:fixed;inset:0;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .9s,transform 1s cubic-bezier(.6,.05,.2,1)}
+.scene.on{opacity:1;pointer-events:auto}
+button{font:inherit;cursor:pointer}
+.face{display:block;width:100%}
+.face .s{display:none}
+.happy .face .n{display:none}
+.happy .face .s{display:inline}
+.pair{display:flex;align-items:flex-end;justify-content:center}
+.who{width:50%;margin:0 -2%}
+.happy .who{animation:hop .55s ease 3}
+.happy .who:nth-child(2){animation-delay:.12s}
+@keyframes hop{40%{transform:translateY(-14px) rotate(-3deg)}}
+/* gate */
+#gate.out{transform:scale(2.4);opacity:0;pointer-events:none}
+#gate h1{font-size:clamp(25px,7vw,34px);font-weight:400;margin:0 0 6px}
+#gate .sub{margin:0 0 26px;color:var(--sub);font-size:14px}
+.door{width:min(78vw,330px);aspect-ratio:1/.98;border:0;padding:12px;border-radius:999px 999px 30px 30px;background:linear-gradient(#ffcfe0,#cddfff);box-shadow:var(--sh),0 0 0 8px rgba(255,255,255,.45);transition:transform .4s}
+.door:hover{transform:translateY(-4px)}
+.arch{height:100%;border-radius:999px 999px 20px 20px;background:linear-gradient(#fffdf6,#ffeef5);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.arch .pair{width:100%;padding:0 6%}
+.hint{margin-top:26px;color:var(--sub);font-size:13px;animation:pl 2.4s ease-in-out infinite}
+@keyframes pl{50%{opacity:.35}}
+.heart{position:fixed;pointer-events:none;font-size:22px;animation:up 1.7s ease-out forwards}
+@keyframes up{to{transform:translateY(-140px) scale(1.5);opacity:0}}
+/* pin pad */
+.pad{position:fixed;inset:0;z-index:5;display:flex;align-items:flex-end;background:rgba(190,160,220,.28);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s}
+.pad.on{opacity:1;pointer-events:auto}
+.sheet{width:min(100%,380px);margin:0 auto;background:var(--card);backdrop-filter:blur(24px);border-radius:32px 32px 0 0;padding:26px 28px calc(24px + env(safe-area-inset-bottom,0px));text-align:center;transform:translateY(100%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pad.on .sheet{transform:none}
+.sheet.sk{animation:sk .45s}
+@keyframes sk{25%{translate:-9px}75%{translate:9px}}
+#pm{margin:0 0 16px;font-size:15px}
+.dots{display:flex;justify-content:center;gap:14px;margin-bottom:20px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #e59ab5;transition:.2s}
+.dots i.f{background:#e59ab5;transform:scale(1.15)}
+.keys{display:grid;grid-template-columns:repeat(3,64px);justify-content:center;gap:12px}
+.keys button{height:64px;border:0;border-radius:50%;font-size:22px;color:var(--ink);background:rgba(255,255,255,.6);box-shadow:0 3px 10px rgba(150,120,170,.15)}
+.keys button:active{background:#ffd6e4}
+/* stage */
+#stage{transform:scale(.75)}
+#stage.on{transform:none}
+#stage.on.dive{transform:scale(2.6);opacity:0;pointer-events:none}
+#stage h2{position:absolute;top:calc(env(safe-area-inset-top,0px) + 16px);margin:0;font-size:16px;font-weight:400;color:var(--sub);letter-spacing:.06em}
+.orbit{position:relative;width:min(100vw,540px);height:min(calc(100svh - 110px),720px)}
+.orbit>.pair{position:absolute;left:50%;top:50%;width:46%;translate:-50% -50%}
+.b{position:absolute;isolation:isolate;width:clamp(106px,29%,150px);padding:26px 8px 18px;text-align:center;border:0;color:#4a3f4f;background:radial-gradient(circle at 30% 25%,#fff,var(--cl));border-radius:58% 42% 54% 46%/52% 56% 44% 48%;box-shadow:var(--sh),inset 0 -6px 14px rgba(255,255,255,.6);animation:fl 5s ease-in-out infinite var(--d)}
+.b::before,.b::after{content:'';position:absolute;z-index:-1;border-radius:50%;background:var(--cl);width:36%;aspect-ratio:1;top:-14%;left:14%}
+.b::after{width:30%;left:auto;right:16%;top:-10%}
+.b em{display:block;font-style:normal;font-size:22px}
+.b b{display:block;font-size:17px;font-weight:400}
+.b small{display:block;font-size:11px;opacity:.7}
+@keyframes fl{50%{transform:translateY(-9px)}}
+#stage .hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);margin:0}
+/* detail */
+#detail{justify-content:flex-start;overflow-y:auto;transform:scale(.7)}
+#detail.on{transform:none}
+.dw{width:min(100%,520px);padding:18px 18px 44px;margin:0 auto}
+.back{border:0;background:var(--card);color:var(--ink);padding:9px 16px;border-radius:20px;box-shadow:var(--sh)}
+.dh{text-align:center;margin:10px 0 6px}
+.dh span{font-size:38px}
+.dh h2{margin:2px 0;font-size:26px;font-weight:400}
+.dh p{margin:0;color:var(--sub);font-size:14px}
+.meter{margin:20px 4px;text-align:center;font-size:12.5px;color:var(--sub)}
+.bar{position:relative;height:10px;border-radius:9px;background:linear-gradient(90deg,#b8ecd6,#ffe3a8,#ffb3c1);margin:10px 0 8px}
+.bar i{position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:var(--sh);translate:-50% -50%}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card,.tip{background:var(--card);backdrop-filter:blur(12px);border-radius:26px;padding:16px 12px;text-align:center;box-shadow:var(--sh)}
+.av{width:76px;margin:0 auto 4px;border-radius:50%;background:linear-gradient(#fffdf6,#ffe6ef);overflow:hidden;padding-top:6px}
+.card h3{margin:4px 0;font-size:13px;color:var(--sub);font-weight:400}
+.card strong{display:block;font-size:15px;font-weight:400;margin:6px 0}
+.card p,.tip p{font-size:12.5px;line-height:1.7;margin:0;color:var(--sub)}
+.tip{margin-top:16px;padding:18px}
+.tip b{display:block;font-weight:400;margin-bottom:6px;font-size:15px}
+.tip p{font-size:13.5px;color:var(--ink)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="gate" class="scene on">
+  <h1>우리의 가치관 정원</h1>
+  <p class="sub">두 사람만 들어올 수 있어요</p>
+  <button class="door" id="door" aria-label="문을 열고 비밀번호 입력"><div class="arch"><div class="pair" id="gp"></div></div></button>
+  <p class="hint">문을 눌러 들어가요 ✦</p>
+  <div class="pad" id="pad"><div class="sheet"><p id="pm">비밀번호 4자리를 눌러주세요</p><div class="dots"><i></i><i></i><i></i><i></i></div><div class="keys" id="keys"></div></div></div>
+</div>
+<div id="stage" class="scene">
+  <h2>우리의 가치관 구름</h2>
+  <div class="orbit"><div class="pair happy" id="sp"></div></div>
+  <p class="hint">구름을 눌러 안으로 들어가 보세요</p>
+</div>
+<div id="detail" class="scene"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const E='<g class="s"><ellipse cx="58" cy="140" rx="9" ry="5" fill="#ffb3b8" stroke="none" opacity=".7"/><ellipse cx="142" cy="140" rx="9" ry="5" fill="#ffb3b8" stroke="none" opacity=".7"/></g>';
+const F={
+he:`<svg class="face" viewBox="0 0 200 220" fill="none" stroke="#2c2630" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="42" cy="122" r="9" fill="#f3d9c6"/><circle cx="158" cy="122" r="9" fill="#f3d9c6"/>
+<path d="M84 168v20l16 18 16-18v-20z" fill="#f3d9c6"/>
+<path d="M26 220q12-32 54-38l20 24 20-24q42 6 54 38z" fill="#33323b"/>
+<path d="M42 104C42 56 158 56 158 104c4 48-18 76-58 76s-62-28-58-76z" fill="#f6dfcc"/>
+<path d="M32 114C20 46 66 14 102 14c42 0 80 32 66 100-4-8-10-14-18-18-14 4-36 0-50-22-14 20-34 24-50 20-8 6-14 12-18 20z" fill="#2f2a33"/>
+<g stroke="#7b8594" stroke-width="1.6" fill="#bfe3ff" fill-opacity=".25"><path d="M56 111h40v14q0 10-12 10H68q-12 0-12-10z"/><path d="M104 111h40v14q0 10-12 10h-16q-12 0-12-10z"/><path d="M50 110h46M104 110h46M96 114q4-4 8 0" fill="none" stroke-width="3"/></g>
+<path d="M94 143q6 6 12 0"/>
+<path d="M72 151q28-12 56 0M78 171q22 10 44 0" stroke-width="7" stroke-dasharray=".1 5" opacity=".45"/>
+<g class="n"><ellipse cx="76" cy="122" rx="6" ry="3.5" fill="#2c2630" stroke="none"/><ellipse cx="124" cy="122" rx="6" ry="3.5" fill="#2c2630" stroke="none"/><path d="M88 158q12 4 24 0"/></g>
+<g class="s"><path d="M67 125q8-12 16 0M117 125q8-12 16 0"/><path d="M84 152q16 26 32 0z" fill="#ff8a95"/></g>${E}</svg>`,
+she:`<svg class="face" viewBox="0 0 200 220" fill="none" stroke="#2c2630" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M28 120C20 40 64 12 100 12s80 28 72 108l6 48q-14-8-28-2H50q-14-6-28 2z" fill="#4a3b3f"/>
+<path d="M84 170v20l16 12 16-12v-20z" fill="#ffe9dc"/>
+<path d="M34 220q10-28 48-34l18 12 18-12q38 6 48 34z" fill="#f7c6d0"/>
+<path d="M46 112C46 64 154 64 154 112c4 44-18 68-54 68s-58-24-54-68z" fill="#fff4ea"/>
+<path d="M42 112C44 52 158 48 158 112c-12-20-34-32-54-50-12 22-38 36-62 50z" fill="#4a3b3f"/>
+<path d="M92 74q-4 10-6 18M104 70q-2 12-4 22" stroke="#9a8488" stroke-width="2"/>
+<path d="M62 106q12-5 24 0M114 106q12-5 24 0"/><path d="M100 134q-4 8 2 10"/>
+<g class="n"><ellipse cx="74" cy="119" rx="10" ry="5" fill="#fff"/><circle cx="74" cy="119" r="3.5" fill="#2c2630"/><ellipse cx="126" cy="119" rx="10" ry="5" fill="#fff"/><circle cx="126" cy="119" r="3.5" fill="#2c2630"/><path d="M88 156q12-6 24 0q-6 10-18 8z" fill="#ffb3b8"/></g>
+<g class="s"><path d="M64 122q10-12 20 0M116 122q10-12 20 0"/><path d="M84 152q16 26 32 0z" fill="#ff8a95"/></g>${E}</svg>`};
+/* 내용은 예시예요 — 여기만 고치면 됩니다 */
+const D={names:{he:'그',she:'그녀'},topics:[
+{e:'📈',t:'투자',sub:'수익과 평온',he:['근거 우선, 장기 집중','데이터와 논리가 확인될 때만 움직이고, 믿으면 길게 갑니다.'],she:['마음 편한 분산','잠이 잘 오는 수준이 기준. 수익보다 평온을 챙겨요.'],gap:70,tip:'공동 자금은 분산, 각자 자금은 자유롭게. 계좌를 둘로 나눠 보세요.'},
+{e:'💕',t:'연애',sub:'사랑 표현',he:['행동으로 보여주기','말보다 곁에 있어 주는 것으로 마음을 전해요.'],she:['말로 들려주기','"고마워, 좋아"를 자주 들을 때 사랑을 느껴요.'],gap:55,tip:'하루 한 번, 오늘 고마웠던 일을 말로 나눠요.'},
+{e:'🏡',t:'가정',sub:'함께 사는 모습',he:['안정과 역할 분담','집은 쉬는 곳. 각자 맡은 일이 분명하면 편해요.'],she:['함께 꾸리는 공간','집안일도 같이 하며 대화하는 시간으로 삼고 싶어요.'],gap:45,tip:'주 1회 가정 회의로 역할을 가볍게 다시 맞춰요.'},
+{e:'💰',t:'돈과 소비',sub:'모으기와 쓰기',he:['아끼고 불리기','목표가 있으면 지금의 소비를 기꺼이 미뤄요.'],she:['경험에는 쓰기','추억이 되는 소비는 아깝지 않다고 생각해요.'],gap:60,tip:'매달 "경험 예산"을 따로 정해 두고 그 안에서는 마음껏.'},
+{e:'⚖️',t:'일과 삶',sub:'몰입과 균형',he:['몰입하는 일','일에서 성취를 느끼고, 집중할 땐 깊이 들어가요.'],she:['균형 있는 하루','퇴근 후와 주말은 온전히 쉬어야 힘이 나요.'],gap:50,tip:'몰입하는 날은 미리 알려 주고, 그다음 날은 함께 쉬어요.'},
+{e:'✈️',t:'여가와 여행',sub:'쉬는 방식',he:['집에서 충전','조용한 공간에서 혼자 또 함께 쉬는 시간이 좋아요.'],she:['새로운 곳 탐험','낯선 곳을 걷고 맛보며 에너지를 채워요.'],gap:80,tip:'여행은 번갈아 기획하고, 하루는 집콕·하루는 탐험으로.'}]};
+const stage=$('#stage'),detail=$('#detail'),pad=$('#pad'),gate=$('#gate');
+$('#gp').innerHTML=$('#sp').innerHTML=`<div class="who">${F.he}</div><div class="who">${F.she}</div>`;
+/* 구름 풍선 */
+const P=[[3,6],[67,10],[0,38],[71,43],[4,71],[66,75]],C=['#ffd6e4','#d6e6ff','#fff0c2','#d8f5e6','#e8dcff','#ffe0d0'];
+D.topics.forEach((t,i)=>{const b=document.createElement('button');b.className='b';b.style.cssText=`left:${P[i][0]}%;top:${P[i][1]}%;--cl:${C[i]};--d:${-i*.9}s`;b.innerHTML=`<em>${t.e}</em><b>${t.t}</b><small>${t.sub}</small>`;b.onclick=()=>dive(i,b);$('.orbit').append(b)});
+function dive(i,b){
+  const t=D.topics[i],n=D.names,r=b.getBoundingClientRect();
+  stage.style.transformOrigin=`${r.left+r.width/2}px ${r.top+r.height/2}px`;
+  const lv=t.gap<35?'꽤 비슷해요':t.gap<65?'조금 달라요':'많이 달라요';
+  const card=(k)=>`<div class="card"><div class="av happy">${F[k]}</div><h3>${n[k]}</h3><strong>${t[k][0]}</strong><p>${t[k][1]}</p></div>`;
+  detail.innerHTML=`<div class="dw"><button class="back">← 구름으로</button><div class="dh"><span>${t.e}</span><h2>${t.t}</h2><p>${t.sub}</p></div>
+  <div class="meter">차이 ${t.gap} · ${lv}<div class="bar"><i style="left:${t.gap}%"></i></div></div>
+  <div class="cards">${card('he')}${card('she')}</div>
+  <div class="tip"><b>💡 함께 맞추는 방법</b><p>${t.tip}</p></div></div>`;
+  detail.scrollTop=0;stage.classList.add('dive');
+  setTimeout(()=>detail.classList.add('on'),450);
+  detail.querySelector('.back').onclick=()=>{detail.classList.remove('on');stage.classList.remove('dive')};
+}
+/* 비밀번호 */
+let code='',busy=false;const dots=[...document.querySelectorAll('.dots i')];
+$('#keys').innerHTML=[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>k===''?'<span></span>':`<button data-k="${k}">${k}</button>`).join('');
+$('#keys').onclick=e=>{const k=e.target.dataset.k;if(k)press(k)};
+$('#door').onclick=()=>pad.classList.add('on');
+pad.onclick=e=>{if(e.target===pad)pad.classList.remove('on')};
+document.onkeydown=e=>{if(!pad.classList.contains('on'))return;if(/^\d$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('⌫');else if(e.key==='Escape')pad.classList.remove('on')};
+function paint(){dots.forEach((d,i)=>d.classList.toggle('f',i<code.length))}
+function press(k){if(busy)return;code=k==='⌫'?code.slice(0,-1):(code+k).slice(0,4);paint();if(code.length===4)setTimeout(check,180)}
+function check(){
+  if(code==='0821'){busy=true;pad.classList.remove('on');$('#gp').classList.add('happy');hearts();setTimeout(enter,1900);return}
+  const s=$('.sheet');s.classList.add('sk');$('#pm').textContent='앗, 다시 한번 눌러볼까요? 💭';
+  setTimeout(()=>{code='';paint();s.classList.remove('sk')},500);
+}
+function hearts(){const r=$('#door').getBoundingClientRect();for(let i=0;i<9;i++){const h=document.createElement('span');h.className='heart';h.textContent=['💗','✨','💞','🌸'][i%4];h.style.left=r.left+r.width*(.15+Math.random()*.7)+'px';h.style.top=r.top+r.height*.5+'px';h.style.animationDelay=i*.12+'s';document.body.append(h);setTimeout(()=>h.remove(),2800)}}
+function enter(){gate.classList.remove('on');gate.classList.add('out');stage.classList.add('on')}
+</script>
+</body>
+</html>
